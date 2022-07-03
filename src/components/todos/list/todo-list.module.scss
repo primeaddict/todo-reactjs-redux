@@ -1,0 +1,81 @@
+.container {
+    width          : 80%;
+    display        : flex;
+    justify-content: center;
+    padding        : 1rem;
+
+    .todoContainer {
+        background: gray;
+    }
+
+
+    .todoElementContainer {
+        align-items    : center;
+        justify-content: center;
+        background     : rgba(171, 171, 171, 0.501);
+        width          : 100%;
+        padding        : 12px;
+        border-radius  : 5px;
+        margin         : 12px;
+        display        : flex;
+        flex-direction : column;
+
+        .todoElementTitle {
+            display        : flex;
+            justify-content: space-between;
+            width          : 100%;
+            align-items    : center;
+        }
+
+        .todoElementContent {
+            display        : flex;
+            justify-content: space-between;
+            width          : 100%;
+            margin         : 12px 0;
+        }
+
+        .todoElementButton {
+            background     : transparent;
+            border         : none;
+            font-weight    : bolder;
+            font-size      : 12px;
+            cursor         : pointer;
+            text-decoration: underline;
+        }
+    }
+}
+
+
+// Tooltip
+
+/* Tooltip container */
+.tooltip {
+    position     : relative;
+    display      : inline-block;
+    border-bottom: 1px dotted black;
+    /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltipText {
+    visibility      : hidden;
+    max-width       : 400px;
+    width           : 100%;
+    background-color: black;
+    color           : #fff;
+    text-align      : center;
+    padding         : 5px 0;
+    border-radius   : 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index : 1;
+
+    left: 0;
+    top : 0;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipText {
+    visibility: visible;
+}
