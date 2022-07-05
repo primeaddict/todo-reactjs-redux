@@ -12,7 +12,13 @@ const TodoList = ({ list = [], onEditClick, onDeleteClick, onTodoSelect }) => {
                         <div key={todo.id} className={s.todoElementContainer}>
                             <div className={s.todoElementTitle}>
                                 <div >
-                                    <input checked={todo.isSelected} id={todo.id} onClick={() => onTodoSelect(todo)} type="radio" />
+                                    <input
+                                        id="selected"
+                                        type="checkbox"
+                                        checked={todo.isSelected}
+                                        onChange={() => { onTodoSelect(todo) }}
+                                    />
+                                    {/* <input checked={todo.isSelected} defaultChecked={todo.isSelected} id={todo.id} onClick={() => onTodoSelect(todo)} type="radio" /> */}
                                     {todo.title}
                                 </div>
                                 <div>
@@ -20,7 +26,6 @@ const TodoList = ({ list = [], onEditClick, onDeleteClick, onTodoSelect }) => {
                                     <Button onClick={() => onEditClick(todo)} className={s.todoElementButton} label="Edit" />
                                 </div>
                             </div>
-                            {/* <div className={s.todoElementContent}>{todo.content}</div> */}
                         </div>
                     )
                 })

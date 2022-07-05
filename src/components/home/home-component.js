@@ -4,31 +4,30 @@ import TodoEdit from "../todos/edit/todo-edit.component";
 import s from "./home.module.scss"
 import Button from "../common/button";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addOrEditTodoReducer, deleteSelectedTodosReduces, removeTodoReducer, selectTodoReducer } from "../../redux/todo/todoSlice";
+import { connect } from "react-redux";
+
+import { a__addTodo, a__removeTodo, a__selectTodo } from "../../redux/action"
+import { s__getTodoList } from "../../redux/selector";
 
 
-// const setListLocal = (oldList, newTodo) => {
-//     localStorage && localStorage.setItem("list", JSON.stringify([...oldList, newTodo]))
-// }
+const HomeComponent = (props) => {
 
-const HomeComponent = () => {
-
-    const todos = useSelector(store => store.todos.todos)
-    const dispatch = useDispatch()
+    const { s__todoList, d__addTodo, d__removeTodo, d__selectTodo } = props
+    console.log("🚀 ~ file: home-component.js ~ line 16 ~ HomeComponent ~ s__todoList", s__todoList)
 
     const [showEditor, setShowEditor] = useState(false)
     const [currentTodo, setCurrentTodo] = useState({})
 
 
+    const todos = s__todoList
     const saveTodo = (newTodo) => {
         setShowEditor(false)
         setCurrentTodo({})
-        dispatch(addOrEditTodoReducer(newTodo))
+        d__addTodo(newTodo)
     }
 
     const deleteTodo = (todo) => {
-        dispatch(removeTodoReducer(todo))
+        d__removeTodo(todo.id)
     }
 
     const editTodo = (todo) => {
@@ -37,7 +36,7 @@ const HomeComponent = () => {
     }
 
     const selectTodo = (todo) => {
-        dispatch(selectTodoReducer(todo))
+        d__selectTodo(todo.id);
     }
 
     return (
@@ -45,15 +44,7 @@ const HomeComponent = () => {
             <h1>
                 Todo Application
             </h1>
-
-            <div style={{ display: "flex" }}>
-                <Button onClick={() => setShowEditor(true)} label="+ ADD TODO" />
-                <span style={{ width: "20px" }} >{"  "}</span>
-                <Button onClick={() => dispatch(deleteSelectedTodosReduces())} label="DELETE SELECTED" />
-            </div>
-
             <TodoEdit
-                onCloseClick={() => setShowEditor(false)}
                 openEditPopup={showEditor}
                 onSaveClick={saveTodo}
                 currentTodo={currentTodo}
@@ -68,4 +59,21 @@ const HomeComponent = () => {
     )
 }
 
-export default HomeComponent
+function mapStateToProps(state) {
+    return {
+        s__todoList: s__getTodoList(state)
+    }
+}
+
+
+function mapDispatchToProps(dispatch) {
+
+    return {
+        d__addTodo: (data) => dispatch(a__addTodo(data)),
+        d__removeTodo: (data) => dispatch(a__removeTodo(data)),
+        d__selectTodo: (data) => dispatch(a__selectTodo(data))
+    }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeComponent)

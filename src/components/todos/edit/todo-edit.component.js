@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import Button from "../../common/button"
 import s from "./todo-edit.module.scss"
 
-const TodoEdit = ({ openEditPopup = false, onCloseClick, onSaveClick, currentTodo }) => {
+const TodoEdit = ({ onSaveClick, currentTodo }) => {
 
     const [todo, setTodo] = useState(currentTodo);
-    const { title = "", content = "", id = "" } = todo;
+    const { title = "", id = "" } = todo;
 
     const setTodoValue = (e) => {
         setTodo(() => ({ ...todo, [e.target.id]: e.target.value, id: id ? id : new Date().getTime(), isSelected: false }))
@@ -24,29 +24,15 @@ const TodoEdit = ({ openEditPopup = false, onCloseClick, onSaveClick, currentTod
     }
 
     const onClearClick = () => {
-        setTodo(() => ({ title: "", content: "", id: "" }))
+        setTodo(() => ({ title: "", id: "" }))
     }
 
     return (
-
-        openEditPopup ?
-            <div className={s.container} >
-                <span onClick={onCloseClick} className={s.close}>✖</span>
-                <div className={s.modal}>
-                    <h1>Edit Todo </h1>
-                    <form>
-                        <input id="title" onChange={setTodoValue} placeholder="Title" autoFocus required value={title} />
-                        {/* <textarea id="content" value={content} onChange={setTodoValue} placeholder="content" /> */}
-                        <div className={s.buttonContainer}>
-                            {todo.id && <Button label="Clear" onClick={onClearClick} style={{ color: "white", background: "#f55a5a" }} />}
-                            <Button label="Save" onClick={onSaveClickLocal} />
-                        </div>
-                    </form>
-                </div>
-            </div >
-            :
-            null
-
+        <div className={s.container}>
+            <input id="title" onChange={setTodoValue} placeholder="Todo" autoFocus required value={title} />
+            <Button label="Save" onClick={onSaveClickLocal} />
+            {todo.id && <Button label="Clear" onClick={onClearClick} style={{ color: "white", background: "#f55a5a" }} />}
+        </  div>
     )
 }
 
