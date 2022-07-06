@@ -7,21 +7,18 @@ import { useState } from "react";
 import { connect } from "react-redux";
 
 import { a__addTodo, a__removeTodo, a__selectTodo } from "../../redux/action"
-import { s__getTodoList } from "../../redux/selector";
+import { s__getTodoList, s__loading } from "../../redux/selector";
 
 
 const HomeComponent = (props) => {
 
-    const { s__todoList, d__addTodo, d__removeTodo, d__selectTodo } = props
-    console.log("🚀 ~ file: home-component.js ~ line 16 ~ HomeComponent ~ s__todoList", s__todoList)
+    const { s__todoList, d__addTodo, d__removeTodo, d__selectTodo, s__loading } = props
 
-    const [showEditor, setShowEditor] = useState(false)
     const [currentTodo, setCurrentTodo] = useState({})
 
 
     const todos = s__todoList
     const saveTodo = (newTodo) => {
-        setShowEditor(false)
         setCurrentTodo({})
         d__addTodo(newTodo)
     }
@@ -32,7 +29,6 @@ const HomeComponent = (props) => {
 
     const editTodo = (todo) => {
         setCurrentTodo(todo)
-        setShowEditor(true)
     }
 
     const selectTodo = (todo) => {
@@ -41,27 +37,32 @@ const HomeComponent = (props) => {
 
     return (
         <div className={s.container}>
-            <h1>
-                Todo Application
-            </h1>
-            <TodoEdit
-                openEditPopup={showEditor}
-                onSaveClick={saveTodo}
-                currentTodo={currentTodo}
-            />
-            <TodoList
-                list={todos}
-                onEditClick={editTodo}
-                onDeleteClick={deleteTodo}
-                onTodoSelect={selectTodo}
-            />
-        </div>
+            {s__loading ? <div className={s.loading}>loading...</div> : <div></div>}
+
+            <>
+                <div className={s.thirteen}>
+                    <h1>Todo Application</h1>
+                </div>
+                <TodoEdit
+                    onSaveClick={saveTodo}
+                    currentTodo={currentTodo}
+                />
+                <TodoList
+                    list={todos}
+                    onEditClick={editTodo}
+                    onDeleteClick={deleteTodo}
+                    onTodoSelect={selectTodo}
+                />
+            </>
+
+        </div >
     )
 }
 
 function mapStateToProps(state) {
     return {
-        s__todoList: s__getTodoList(state)
+        s__todoList: s__getTodoList(state),
+        s__loading: s__loading(state)
     }
 }
 
@@ -69,7 +70,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 
     return {
-        d__addTodo: (data) => dispatch(a__addTodo(data)),
+        d__addTodo: (data) => dispatch(a__addTodo.request(data)),
         d__removeTodo: (data) => dispatch(a__removeTodo(data)),
         d__selectTodo: (data) => dispatch(a__selectTodo(data))
     }

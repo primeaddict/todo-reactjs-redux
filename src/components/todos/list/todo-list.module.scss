@@ -12,13 +12,13 @@
     .todoElementContainer {
         align-items    : center;
         justify-content: center;
-        background     : rgba(171, 171, 171, 0.501);
+        background     : rgb(255 164 164 / 50%);
         width          : 100%;
         padding        : 12px;
-        border-radius  : 5px;
         margin         : 12px;
         display        : flex;
         flex-direction : column;
+        min-width      : 100%;
 
         .todoElementTitle {
             display        : flex;
@@ -28,19 +28,22 @@
         }
 
         .todoElementContent {
-            display        : flex;
-            justify-content: space-between;
-            width          : 100%;
-            margin         : 12px 0;
+            flex       : 1;
+            padding    : 12px 10px;
+            font-size  : 18px;
+            color      : #ff5757c7;
+            font-weight: 900;
+            word-wrap  : break-word;
+            max-width  : 75%;
         }
 
         .todoElementButton {
-            background     : transparent;
-            border         : none;
-            font-weight    : bolder;
-            font-size      : 12px;
-            cursor         : pointer;
-            text-decoration: underline;
+            background : transparent;
+            border     : none;
+            font-weight: bolder;
+            font-size  : 12px;
+            cursor     : pointer;
+            color      : white;
         }
     }
 }
@@ -65,7 +68,6 @@
     color           : #fff;
     text-align      : center;
     padding         : 5px 0;
-    border-radius   : 6px;
 
     /* Position the tooltip text - see examples below! */
     position: absolute;
@@ -78,4 +80,36 @@
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltipText {
     visibility: visible;
+}
+
+
+
+.one h1 {
+    text-align    : center;
+    text-transform: uppercase;
+    padding-bottom: 5px;
+}
+
+.one h1:before {
+    width           : 28px;
+    height          : 5px;
+    display         : block;
+    content         : "";
+    position        : absolute;
+    bottom          : 3px;
+    left            : 50%;
+    margin-left     : -14px;
+    background-color: #b80000;
+}
+
+.one h1:after {
+    width           : 100px;
+    height          : 1px;
+    display         : block;
+    content         : "";
+    position        : relative;
+    margin-top      : 25px;
+    left            : 50%;
+    margin-left     : -50px;
+    background-color: #b80000;
 }

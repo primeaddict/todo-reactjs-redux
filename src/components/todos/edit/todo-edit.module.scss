@@ -3,15 +3,17 @@
     display        : flex;
     justify-content: center;
     align-items    : center;
-    margin: 12px;
+    margin         : 12px;
 
     input {
-        height : 35px;
-        padding: 0 4px;
-        margin : 0 12px;
+        height    : 40px;
+        background: #cfcfcf;
+        border    : none;
+        padding   : 12px;
+        color     : black;
     }
 
-    Button{
-        margin: 0 12px ;
+    Button {
+        margin: 0 12px;
     }
 }

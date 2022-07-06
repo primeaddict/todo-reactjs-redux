@@ -19,18 +19,22 @@ const TodoList = ({ list = [], onEditClick, onDeleteClick, onTodoSelect }) => {
                                         onChange={() => { onTodoSelect(todo) }}
                                     />
                                     {/* <input checked={todo.isSelected} defaultChecked={todo.isSelected} id={todo.id} onClick={() => onTodoSelect(todo)} type="radio" /> */}
-                                    {todo.title}
+
                                 </div>
+                                <div className={s.todoElementContent}> <span>
+                                    {todo.title}</span></div>
                                 <div>
-                                    <Button onClick={() => onDeleteClick(todo)} className={s.todoElementButton} label="Delete" />
-                                    <Button onClick={() => onEditClick(todo)} className={s.todoElementButton} label="Edit" />
+                                    <Button style={{ color: "#ff4848" }} onClick={() => onDeleteClick(todo)} className={s.todoElementButton} label="Delete" />
+                                    <Button style={{ color: "#6969ff" }} onClick={() => onEditClick(todo)} className={s.todoElementButton} label="Edit" />
                                 </div>
                             </div>
                         </div>
                     )
                 })
                     :
-                    <p>No Todos Added</p>
+                    <div className={s.one}>
+                        <h1>No Todos Added</h1>
+                    </div>
                 }
             </div>
         )
